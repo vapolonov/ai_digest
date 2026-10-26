@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101012">
+  <meta name="description" content="Понятный AI-дайджест для новичков: ChatGPT, Codex, промпты и первые проекты — коротко и без шума.">
+  <title>нео / AI-дайджест для новичков</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%23d3ff61'/%3E%3Ctext x='7' y='29' font-size='27' font-family='Arial' font-weight='bold' fill='%23101012'%3E%D0%BD.%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Нео — на главную"><span class="brand-mark">н.</span><span>нео<span class="brand-dot">/</span></span></a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#digest">Дайджест</a><a href="#route">Маршрут</a>
+    </nav>
+    <a class="top-cta" href="#digest">Найти свой старт <span>↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> AI ДЛЯ ЛЮДЕЙ, А НЕ ДЛЯ РОБОТОВ <span class="eyebrow-index">№ 001—009</span></div>
+        <h1>Нейросети.<br>Теперь <span class="serif">понятно.</span><span class="hero-star">✳</span></h1>
+        <p class="hero-lede">Короткий гид в мире AI. Без техно-шума — только то, с чего реально начать.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#digest">Открыть дайджест <span>↓</span></a><span class="hero-note">9 материалов <i>·</i> 63 минуты любопытства</span></div>
+      </div>
+      <div class="hero-art" aria-label="Абстрактная иллюстрация цифровой орбиты">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+        <div class="orbit-core"><span>AI</span><i>✳</i></div>
+        <div class="orbit-label label-top">человек × алгоритм</div><div class="orbit-label label-bottom">начни с вопроса</div>
+        <span class="float-chip chip-lime">prompt.exe</span><span class="float-chip chip-pink">hello, AI</span>
+        <span class="art-cross cross-a">+</span><span class="art-cross cross-b">+</span>
+      </div>
+      <div class="hero-foot"><span>МЕНЬШЕ СЛОЖНОСТИ <b>→</b> БОЛЬШЕ ИДЕЙ</span><span>ЛИСТАЙ, ЭТО ТВОЯ ТОЧКА ВХОДА <b>↓</b></span></div>
+    </section>
+
+    <section class="digest section-wrap" id="digest">
+      <div class="section-heading">
+        <div><div class="eyebrow section-eyebrow">01 / ПОЛКА ДЛЯ ЛЮБОПЫТНЫХ</div><h2>Что хочется <span class="serif">попробовать?</span></h2></div>
+        <p>Выбери тему или просто ткни в то,<br>что зацепило. Все материалы короткие.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Фильтр материалов">
+        <button class="filter is-active" data-filter="all" aria-pressed="true">Все <span>09</span></button>
+        <button class="filter" data-filter="старт" aria-pressed="false">С чего начать</button>
+        <button class="filter" data-filter="промпты" aria-pressed="false">Промпты</button>
+        <button class="filter" data-filter="код" aria-pressed="false">Код и проекты</button>
+        <button class="filter" data-filter="ошибки" aria-pressed="false">Ошибки</button>
+      </div>
+      <div class="card-grid">
+        {% for item in materials %}
+        <article class="material-card theme-{{ item.theme }}" data-tags="{{ item.tags|join(' ') }}" style="--card-index: {{ loop.index0 }}">
+          <div class="card-top"><span class="card-number">{{ item.number }} <i>/</i> {{ item.category }}</span><span class="card-symbol" aria-hidden="true">{{ item.symbol }}</span></div>
+          <div class="card-content"><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div>
+          <div class="card-bottom"><span class="read-time"><span class="time-dot"></span>{{ item.time }}</span><button class="open-card" data-index="{{ loop.index0 }}">Открыть материал <span>↗</span></button></div>
+          <script type="application/json" class="material-data">{{ item|tojson }}</script>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="empty-state" hidden>Пока здесь тихо. Выбери другую тему ✳</div>
+    </section>
+
+    <section class="route-section" id="route">
+      <div class="route-inner">
+        <div class="route-stamp"><span>ТВОЙ</span><b>0→1</b><span>МАРШРУТ</span></div>
+        <div class="route-copy"><div class="eyebrow">02 / НЕ НУЖНО ЗНАТЬ ВСЁ</div><h2>Первый шаг<br>уже <span class="serif">достаточен.</span></h2><p>Выбери один материал, попробуй идею на практике и посмотри, что получится. Остальное — следующий шаг.</p><a class="button button-dark" href="#digest">Выбрать материал <span>↗</span></a></div>
+        <div class="route-doodle" aria-hidden="true"><span class="doodle-ring"></span><span class="doodle-arrow">↗</span><span class="doodle-word">go<br>make<br>stuff.</span><span class="doodle-spark">✳</span></div>
+      </div>
+      <div class="route-ticker" aria-hidden="true"><div>ЛЮБОПЫТСТВО — ХОРОШИЙ ПРОМПТ — ПЕРВЫЙ ПРОЕКТ — <span>ЛЮБОПЫТСТВО — ХОРОШИЙ ПРОМПТ — ПЕРВЫЙ ПРОЕКТ — </span></div></div>
+    </section>
+
+    <footer class="footer"><a class="brand" href="#top"><span class="brand-mark">н.</span><span>нео<span class="brand-dot">/</span></span></a><p>Сложное становится понятным.<br>Один материал за раз.</p><a href="#top" class="back-top">НАВЕРХ ↑</a><span class="footer-small">СОБРАНО С ЛЮБОПЫТСТВОМ · 2025—26</span></footer>
+  </main>
+
+  <dialog class="article-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" aria-label="Закрыть материал">×</button>
+    <div class="dialog-meta"><span class="dialog-category"></span><span class="dialog-time"></span></div>
+    <h2 id="dialog-title"></h2><p class="dialog-lead"></p><div class="dialog-body"></div><div class="dialog-next"><span>ПОПРОБУЙ СЕЙЧАС</span><p></p></div>
+    <button class="dialog-done">Понял, попробую <span>↗</span></button>
+  </dialog>
+</body>
+</html>
